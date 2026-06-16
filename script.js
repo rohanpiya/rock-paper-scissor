@@ -37,6 +37,8 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
+    humanScore = 0;
+    computerScore = 0;
     while (humanScore < 5 && computerScore < 5) {
         let humanSelection = getHumanChoice();
         let computerSelection = getComputerChoice();
