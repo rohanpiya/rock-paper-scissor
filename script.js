@@ -16,9 +16,6 @@ function getHumanChoice() {
     return userPrompt;
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
     if (
@@ -51,6 +48,12 @@ function playRound(humanChoice, computerChoice) {
 const choiceButtons = document.querySelectorAll('.choice-btn');
 const resultsDiv = document.querySelector('.results');
 
+const computerScorePointer = document.querySelector('.computer-score');
+const humanScorePointer = document.querySelector('.human-score');
+
+let computerScore = parseInt(computerScorePointer.textContent);
+let humanScore = parseInt(humanScorePointer.textContent);
+
 choiceButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         humanSelection = btn.textContent;
@@ -60,8 +63,12 @@ choiceButtons.forEach(btn => {
             resultsDiv.textContent = "It's a draw!!";
         } else if (result == "human") {
             resultsDiv.textContent = `Human wins! ${humanSelection} beats ${computerSelection}`;
+            humanScore++;
+            humanScorePointer.textContent = humanScore;
         } else {
             resultsDiv.textContent = `Computer wins! ${humanSelection} loses to ${computerSelection}`;
+            computerScore++;
+            computerScorePointer.textContent = computerScore;
         }
     })
 })
