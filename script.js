@@ -1,81 +1,103 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let randNum = Math.random();
+
     if (randNum <= 0.33) {
         return "rock";
     } else if (randNum <= 0.66) {
         return "paper";
     }
-    return "scissors";
-}
 
-function getHumanChoice() {
-    let userPrompt = prompt("Please enter your choice: ");
-    while (userPrompt != "rock" && userPrompt != "paper" && userPrompt != "scissors") {
-        userPrompt = prompt("Invalid. Please make a valid choice: ");
-    }
-    return userPrompt;
+    return "scissors";
 }
 
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
+
     if (
-        (humanChoice == "scissors" && computerChoice == "paper") ||
-        (humanChoice == "paper" && computerChoice == "rock") ||
-        (humanChoice == "rock" && computerChoice == "scissors")
+        (humanChoice === "scissors" && computerChoice === "paper") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "rock" && computerChoice === "scissors")
     ) {
         return "human";
-    } else if (humanChoice == computerChoice) {
+    } else if (humanChoice === computerChoice) {
         return "draw";
     } else {
         return "computer";
     }
 }
 
-// function playGame() {
-//     humanScore = 0;
-//     computerScore = 0;
-//     while (humanScore < 5 && computerScore < 5) {
-//         let humanSelection = getHumanChoice();
-//         let computerSelection = getComputerChoice();
-//         playRound(humanSelection, computerSelection);
-//     } if (computerScore == 5) {
-//         console.log("You lose the game :(");
-//     } else {
-//         console.log("Congrats! YOu win this game :)");
-//     }
-// }
+function playGame() {
 
-const starterButton = document.querySelector('.new-game-starter');
-const mainGame = document.querySelector('.main-game');
-starterButton.addEventListener('click', () => {
-    mainGame.classList.toggle('invisible');
-    starterButton.classList.add('invisible');
-})
+    const choiceButtons = document.querySelectorAll('.choice-btn');
+    const resultsDiv = document.querySelector('.round-results');
+    const gameResults = document.querySelector('.game-results');
 
-const choiceButtons = document.querySelectorAll('.choice-btn');
-const resultsDiv = document.querySelector('.results');
+    const computerScorePointer =
+        document.querySelector('.computer-score');
 
-const computerScorePointer = document.querySelector('.computer-score');
-const humanScorePointer = document.querySelector('.human-score');
+    const humanScorePointer =
+        document.querySelector('.human-score');
 
-let computerScore = parseInt(computerScorePointer.textContent);
-let humanScore = parseInt(humanScorePointer.textContent);
+    choiceButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (humanScore >= 5 || computerScore >= 5) {
+                return;
+            }
 
-choiceButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        humanSelection = btn.textContent;
-        computerSelection = getComputerChoice();
-        result = playRound(humanSelection, computerSelection);
-        if (result == 'draw') {
-            resultsDiv.textContent = "It's a draw!!";
-        } else if (result == "human") {
-            resultsDiv.textContent = `Human wins! ${humanSelection} beats ${computerSelection}`;
-            humanScore++;
+            const humanSelection = btn.textContent;
+            const computerSelection = getComputerChoice();
+            const result = playRound(humanSelection, computerSelection);
+
+            if (result === "draw") {
+                resultsDiv.textContent =
+                    `Draw! Both chose ${humanSelection}.`;
+            } else if (result === "human") {
+                humanScore++;
+                resultsDiv.textContent =
+                    `You win this round! ${humanSelection} beats ${computerSelection}.`;
+            } else {
+                computerScore++;
+                resultsDiv.textContent =
+                    `Computer wins this round! ${computerSelection} beats ${humanSelection}.`;
+            }
+
             humanScorePointer.textContent = humanScore;
-        } else {
-            resultsDiv.textContent = `Computer wins! ${humanSelection} loses to ${computerSelection}`;
-            computerScore++;
             computerScorePointer.textContent = computerScore;
-        }
-    })
-})
+
+            if (humanScore === 5) {
+                gameResults.textContent =
+                    "Congratulations! You won the game!";
+                choiceButtons.forEach(button => {
+                    button.disabled = true;
+                });
+            } else if (computerScore === 5) {
+                gameResults.textContent =
+                    "Computer won the game.";
+                choiceButtons.forEach(button => {
+                    button.disabled = true;
+                });
+            }
+        });
+    });
+}
+
+playGame();
+
+const newGameBtn = document.querySelector('.start-new-game');
+newGameBtn.addEventListener('click', () => {
+    humanScore = 0;
+    computerScore = 0;
+
+    document.querySelector('.human-score').textContent = 0;
+    document.querySelector('.computer-score').textContent = 0;
+
+    document.querySelector('.round-results').textContent = '';
+    document.querySelector('.game-results').textContent = '';
+
+    document.querySelectorAll('.choice-btn').forEach(button => {
+        button.disabled = false;
+    });
+});
