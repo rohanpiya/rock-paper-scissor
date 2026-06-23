@@ -45,6 +45,8 @@ function playRound(humanChoice, computerChoice) {
 //     }
 // }
 
+const starterButton = document.querySelector('.new-game-starter')
+
 const choiceButtons = document.querySelectorAll('.choice-btn');
 const resultsDiv = document.querySelector('.results');
 

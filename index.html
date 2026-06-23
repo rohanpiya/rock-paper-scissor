@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
-    <h2> Make your choice </h2>
-    <button class="choice-btn">rock</button>
-    <button class="choice-btn">paper</button>
-    <button class="choice-btn">scissors</button>
-
-    <div class="results">
-
+    <div class="starter-content" class="invisible">
+        <button class="new-game-starter">Click to play </button>
     </div>
+    
+    <div class="main-game invisible">
+        <h2> Make your choice </h2>
+        <button class="choice-btn">rock</button>
+        <button class="choice-btn">paper</button>
+        <button class="choice-btn">scissors</button>
 
-    <div class="scores">
-        <h4>Scores</h4>
-        <span> Human: <span class="human-score">0</span> </span>
-        <span> Computer: <span class="computer-score">0</span></span>
+        <div class="results">
+
+        </div>
+
+        <div class="scores">
+            <h4>Scores</h4>
+            <span> Human: <span class="human-score">0</span> </span>
+            <span> Computer: <span class="computer-score">0</span></span>
+        </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 
