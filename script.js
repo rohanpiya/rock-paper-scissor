@@ -45,7 +45,12 @@ function playRound(humanChoice, computerChoice) {
 //     }
 // }
 
-const starterButton = document.querySelector('.new-game-starter')
+const starterButton = document.querySelector('.new-game-starter');
+const mainGame = document.querySelector('.main-game');
+starterButton.addEventListener('click', () => {
+    mainGame.classList.toggle('invisible');
+    starterButton.classList.add('invisible');
+})
 
 const choiceButtons = document.querySelectorAll('.choice-btn');
 const resultsDiv = document.querySelector('.results');
